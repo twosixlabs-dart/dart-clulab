@@ -1,8 +1,6 @@
 # DART Clulab Processors
 This is a set of common utilities and libraries that are used throughout the DART project.  
 
-[![DART Commons](https://github.com/twosixlabs-dart/dart-commons/actions/workflows/dart-commons-publish.yml/badge.svg)](https://github.com/twosixlabs-dart/dart-commons/actions/workflows/dart-commons-publish.yml)
-
 # Modules
 | Module Name     | Description                                                                                      |
 |-----------------|--------------------------------------------------------------------------------------------------|
