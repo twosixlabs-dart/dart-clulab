@@ -1,0 +1,7 @@
+---
+rules:
+  - name: query-example
+    type: basic
+    label: basic
+    pattern: |
+      (?<result>${query})

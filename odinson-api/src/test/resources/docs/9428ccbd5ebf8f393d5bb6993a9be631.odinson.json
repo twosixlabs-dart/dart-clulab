@@ -1,0 +1,106 @@
+{
+  "id": "9428ccbd5ebf8f393d5bb6993a9be631",
+  "metadata": [],
+  "sentences": [
+    {
+      "numTokens": 5,
+      "fields": [
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "raw",
+          "tokens": [
+            "Michael",
+            "is",
+            "the",
+            "best",
+            "."
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "word",
+          "tokens": [
+            "Michael",
+            "is",
+            "the",
+            "best",
+            "."
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "tag",
+          "tokens": [
+            "NNP",
+            "VBZ",
+            "DT",
+            "JJS",
+            "."
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "lemma",
+          "tokens": [
+            "michael",
+            "be",
+            "the",
+            "best",
+            "."
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "entity",
+          "tokens": [
+            "B-PER",
+            "O",
+            "O",
+            "O",
+            "O"
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "chunk",
+          "tokens": [
+            "B-NP",
+            "B-VP",
+            "B-NP",
+            "I-NP",
+            "O"
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.GraphField",
+          "name": "dependencies",
+          "edges": [
+            [
+              3,
+              1,
+              "cop"
+            ],
+            [
+              3,
+              4,
+              "punct"
+            ],
+            [
+              3,
+              0,
+              "nsubj"
+            ],
+            [
+              3,
+              2,
+              "det"
+            ]
+          ],
+          "roots": [
+            3
+          ]
+        }
+      ]
+    }
+  ]
+}

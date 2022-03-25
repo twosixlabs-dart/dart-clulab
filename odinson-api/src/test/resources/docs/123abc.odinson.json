@@ -1,0 +1,327 @@
+{
+  "id": "123abc",
+  "metadata": [],
+  "sentences": [
+    {
+      "numTokens": 10,
+      "fields": [
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "raw",
+          "tokens": [
+            "Lightning",
+            "Bolt",
+            "is",
+            "the",
+            "greatest",
+            "band",
+            "of",
+            "all",
+            "time",
+            "."
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "word",
+          "tokens": [
+            "Lightning",
+            "Bolt",
+            "is",
+            "the",
+            "greatest",
+            "band",
+            "of",
+            "all",
+            "time",
+            "."
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "tag",
+          "tokens": [
+            "NNP",
+            "NNP",
+            "VBZ",
+            "DT",
+            "JJS",
+            "NN",
+            "IN",
+            "DT",
+            "NN",
+            "."
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "lemma",
+          "tokens": [
+            "lightn",
+            "bolt",
+            "be",
+            "the",
+            "greatest",
+            "band",
+            "of",
+            "all",
+            "time",
+            "."
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "entity",
+          "tokens": [
+            "O",
+            "B-PER",
+            "O",
+            "O",
+            "O",
+            "O",
+            "O",
+            "O",
+            "O",
+            "O"
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "chunk",
+          "tokens": [
+            "B-NP",
+            "I-NP",
+            "B-VP",
+            "B-NP",
+            "I-NP",
+            "I-NP",
+            "B-PP",
+            "B-NP",
+            "I-NP",
+            "O"
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.GraphField",
+          "name": "dependencies",
+          "edges": [
+            [
+              1,
+              0,
+              "compound"
+            ],
+            [
+              5,
+              1,
+              "nsubj"
+            ],
+            [
+              5,
+              8,
+              "nmod_of"
+            ],
+            [
+              5,
+              9,
+              "punct"
+            ],
+            [
+              5,
+              3,
+              "det"
+            ],
+            [
+              5,
+              4,
+              "amod"
+            ],
+            [
+              5,
+              2,
+              "cop"
+            ],
+            [
+              8,
+              7,
+              "det"
+            ],
+            [
+              8,
+              6,
+              "case"
+            ]
+          ],
+          "roots": [
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "numTokens": 11,
+      "fields": [
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "raw",
+          "tokens": [
+            "If",
+            "you",
+            "do",
+            "n't",
+            "like",
+            "them",
+            "then",
+            "you",
+            "are",
+            "wrong",
+            "."
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "word",
+          "tokens": [
+            "If",
+            "you",
+            "do",
+            "not",
+            "like",
+            "them",
+            "then",
+            "you",
+            "are",
+            "wrong",
+            "."
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "tag",
+          "tokens": [
+            "IN",
+            "PRP",
+            "VBP",
+            "RB",
+            "VB",
+            "PRP",
+            "RB",
+            "PRP",
+            "VBP",
+            "JJ",
+            "."
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "lemma",
+          "tokens": [
+            "if",
+            "you",
+            "do",
+            "not",
+            "like",
+            "them",
+            "then",
+            "you",
+            "be",
+            "wrong",
+            "."
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "entity",
+          "tokens": [
+            "O",
+            "O",
+            "O",
+            "O",
+            "O",
+            "O",
+            "O",
+            "O",
+            "O",
+            "O",
+            "O"
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.TokensField",
+          "name": "chunk",
+          "tokens": [
+            "B-SBAR",
+            "B-NP",
+            "B-VP",
+            "I-VP",
+            "I-VP",
+            "B-NP",
+            "B-ADVP",
+            "B-NP",
+            "B-VP",
+            "B-ADJP",
+            "O"
+          ]
+        },
+        {
+          "$type": "ai.lum.odinson.GraphField",
+          "name": "dependencies",
+          "edges": [
+            [
+              4,
+              1,
+              "nsubj"
+            ],
+            [
+              4,
+              6,
+              "advmod"
+            ],
+            [
+              4,
+              5,
+              "dobj"
+            ],
+            [
+              4,
+              0,
+              "mark"
+            ],
+            [
+              4,
+              2,
+              "aux"
+            ],
+            [
+              4,
+              3,
+              "neg"
+            ],
+            [
+              9,
+              7,
+              "nsubj"
+            ],
+            [
+              9,
+              4,
+              "advcl"
+            ],
+            [
+              9,
+              10,
+              "punct"
+            ],
+            [
+              9,
+              8,
+              "cop"
+            ]
+          ],
+          "roots": [
+            9
+          ]
+        }
+      ]
+    }
+  ]
+}

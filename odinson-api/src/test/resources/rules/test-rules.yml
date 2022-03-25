@@ -1,0 +1,7 @@
+---
+rules:
+  - name: match-all-nouns
+    type: basic
+    label: basic
+    pattern: |
+      (?<result>[tag=/N.*/])
