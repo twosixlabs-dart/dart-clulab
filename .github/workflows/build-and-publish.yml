@@ -22,7 +22,7 @@ jobs:
     needs: build
     runs-on: macos-latest
     env:
-      SBT_OPTS: "-Xms10G -Xmx24G -XX:+UseG1GC"
+      SBT_OPTS: "-Xms10G -Xmx15G -XX:+UseG1GC"
     steps:
       - uses: actions/checkout@v2.3.4
       - name: Set up JDK 8
@@ -48,6 +48,6 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           persist-credentials: false
       - name: Tag a release
-        uses: twosixlabs-dart/dart-tag-release@v3.0.20
+        uses: twosixlabs-dart/dart-tag-release@v3.0.38
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
