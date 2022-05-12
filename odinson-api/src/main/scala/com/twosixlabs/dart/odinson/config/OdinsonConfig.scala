@@ -36,47 +36,31 @@ case class OdinsonConfig( annotator : AnnotatorConfig,
                |
                |  computeTotalHits: true
                |  displayField: ${fields.displayField}
-               |  index.documentIdField: ${fields.documentIdField}
                |
                |  index {
                |    documentIdField: ${fields.documentIdField}
-               |  }
                |
-               |  compiler {
-               |
-               |    # fields available per token
-               |    allTokenFields = [
-               |      ${fields.rawTokenField},
-               |      ${fields.wordTokenField},
-               |      ${fields.normalizedTokenField},
-               |      ${fields.lemmaTokenField},
-               |      ${fields.posTagTokenField},
-               |      ${fields.chunkTokenField},
-               |      ${fields.entityTokenField},
-               |      ${fields.incomingTokenField},
-               |      ${fields.outgoingTokenField},
+               |    storedFields = [
+               |      ${this.fields.displayField},
+               |      ${this.fields.lemmaTokenField},
+               |      ${this.fields.rawTokenField}
                |    ]
                |
-               |    # the token field to be used when none is specified
-               |    defaultTokenField = ${fields.normalizedTokenField}
+               |    addToNormalizedField = [
+               |      ${this.fields.rawTokenField},
+               |      ${this.fields.wordTokenField}
+               |    ]
                |
-               |    sentenceLengthField = ${fields.sentenceLengthField}
+               |    normalizedTokenField: ${this.fields.normalizedTokenField}
                |
-               |    dependenciesField = ${fields.dependenciesField}
+               |    incomingTokenField: ${this.fields.incomingTokenField}
+               |    outgoingTokenField: ${this.fields.outgoingTokenField}
                |
-               |    incomingTokenField = ${fields.incomingTokenField}
+               |    incremental: ${this.index.incremental}
+               |    refreshMs: ${this.index.refreshMs}
                |
-               |    outgoingTokenField = ${fields.outgoingTokenField}
-               |
-               |    aggressiveNormalizationToDefaultField = ${compiler.aggressiveNormalization}
-               |
-               |  }
-               |
-               |
-               |  state {
-               |    provider: memory
-               |    memory.persistOnClose: false
-               |    memory.stateDir: /opt/app/data
+               |    maxNumberOfTokensPerSentence: ${this.index.maxNumberOfTokensPerSentence}
+               |    invalidCharacterReplacement: ${this.index.invalidCharacterReplacement}
                |  }
                |
                |  compiler {
@@ -87,6 +71,13 @@ case class OdinsonConfig( annotator : AnnotatorConfig,
                |    incomingTokenField: ${compiler.incomingTokenField}
                |    outgoingTokenField: ${compiler.outgoingTokenField}
                |    aggressiveNormalizationToDefaultField: ${compiler.aggressiveNormalization}
+               |  }
+               |
+               |
+               |  state {
+               |    provider: memory
+               |    memory.persistOnClose: false
+               |    memory.stateDir: ./target
                |  }
                |}
                |""".stripMargin

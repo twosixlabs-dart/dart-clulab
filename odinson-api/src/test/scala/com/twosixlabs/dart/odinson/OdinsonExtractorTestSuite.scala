@@ -14,6 +14,7 @@ import scala.concurrent.duration.Duration
 class OdinsonExtractorTestSuite extends OdinsonTestBase with BeforeAndAfterAll {
 
     private val extractorConf : OdinsonConfig = ODINSON_CONF.copy( index = ODINSON_CONF.index.copy( dir = "target/extractor_test" ) )
+    private val extractor = new OdinsonExtractor( odinsonConfig = extractorConf )
 
     override def beforeAll( ) : Unit = {
         val indexer = new OdinsonIndexer( extractorConf )
@@ -27,7 +28,6 @@ class OdinsonExtractorTestSuite extends OdinsonTestBase with BeforeAndAfterAll {
     }
 
     "Odinson Extractor" should "get extractions from a given ruleset" in {
-        val extractor = new OdinsonExtractor( odinsonConfig = extractorConf )
         val query = ExtractorQuery( ruleset = "test-rules" )
         val actualNouns =
             extractor.execute( query )
@@ -39,10 +39,10 @@ class OdinsonExtractorTestSuite extends OdinsonTestBase with BeforeAndAfterAll {
 
         val expectedNouns = Seq( "Michael", "Lightning", "Bolt", "band", "time" )
         actualNouns.toSet shouldBe expectedNouns.toSet
+
     }
 
     "Odinson Extractor" should "execute the a ruleset that includes query variables" in {
-        val extractor = new OdinsonExtractor( odinsonConfig = extractorConf )
         val query = ExtractorQuery( ruleset = "query-vars", variables = Map( "query" -> "Michael" ), queryType = NORM )
 
         val result =

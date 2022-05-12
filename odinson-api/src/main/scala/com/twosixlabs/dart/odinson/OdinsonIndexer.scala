@@ -1,19 +1,20 @@
 package com.twosixlabs.dart.odinson
 
 import ai.lum.odinson.digraph.Vocabulary
+import ai.lum.odinson.lucene.index.{IncrementalOdinsonIndex, OdinsonIndex}
 import ai.lum.odinson.utils.IndexSettings
-import ai.lum.odinson.{OdinsonIndexWriter, Document => OdinsonDocument}
+import ai.lum.odinson.{Document => OdinsonDocument}
 import better.files.File
 import com.twosixlabs.dart.odinson.config.OdinsonConfig
-import org.apache.lucene.document.{Document => LuceneDocument}
-import org.apache.lucene.store.{Directory, FSDirectory}
+import org.apache.lucene.store.FSDirectory
 import org.slf4j.{Logger, LoggerFactory}
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
 
-case class IndexerResult( corpusSize : Int, numBlocks : Int )
+case class IndexerResult( corpusSize : Int )
+
 
 class OdinsonIndexer( config : OdinsonConfig ) {
 
@@ -21,45 +22,40 @@ class OdinsonIndexer( config : OdinsonConfig ) {
 
     implicit private val ec : ExecutionContext = ExecutionContext.global
 
-    private val luceneDir : Directory = FSDirectory.open( File( config.index.dir ).path )
-
     // TODO - @michael - find out what `dependencies.txt` is from the original repo
     private val vocab : Vocabulary = Vocabulary.empty
 
-    private val indexWriter : OdinsonIndexWriter = {
-        new OdinsonIndexWriter( directory = luceneDir,
-                                vocabulary = vocab,
-                                normalizedTokenField = config.fields.normalizedTokenField,
-                                addToNormalizedField = config.fields.addToNormalizedField.toSet,
-                                incomingTokenField = config.fields.incomingTokenField,
-                                outgoingTokenField = config.fields.outgoingTokenField,
-                                maxNumberOfTokensPerSentence = config.index.maxNumberOfTokensPerSentence,
-                                invalidCharacterReplacement = config.index.invalidCharacterReplacement,
-                                settings = IndexSettings( config.fields.storedFields :+ config.fields.displayField ),
-                                displayField = config.fields.displayField )
+    private val index : OdinsonIndex = {
+        val indexDir = FSDirectory.open( File( config.index.dir ).path )
+        Vocabulary.fromDirectory( indexDir )
+        new IncrementalOdinsonIndex( directory = indexDir,
+                                     settings = IndexSettings( config.fields.storedFields ),
+                                     computeTotalHits = true,
+                                     displayField = config.fields.displayField,
+                                     normalizedTokenField = config.fields.normalizedTokenField,
+                                     addToNormalizedField = config.fields.addToNormalizedField.toSet,
+                                     incomingTokenField = config.fields.incomingTokenField,
+                                     outgoingTokenField = config.fields.outgoingTokenField,
+                                     maxNumberOfTokensPerSentence = config.index.maxNumberOfTokensPerSentence,
+                                     invalidCharacterReplacement = config.index.invalidCharacterReplacement,
+                                     refreshMs = config.index.refreshMs )
     }
 
     def indexDocuments( docs : Seq[ OdinsonDocument ] ) : Future[ IndexerResult ] = {
         val sourceDocCount : Int = docs.size
-        val indexingOp : Seq[ Future[ Int ] ] = docs.map( indexDocument )
+        val indexingOp : Seq[ Future[ Unit ] ] = docs.map( indexDocument )
 
         Future.sequence( indexingOp ) transform {
-            case Success( value ) => Success( IndexerResult( corpusSize = sourceDocCount, numBlocks = value.sum ) )
+            case Success( _ ) => Success( IndexerResult( corpusSize = sourceDocCount ) )
             case Failure( e ) => Failure( e )
         }
     }
 
-    def indexDocument( doc : OdinsonDocument ) : Future[ Int ] = {
-        Future {
-            val block = convertToLucene( doc )
-            indexWriter.addDocuments( block )
-            block.size
-        }
+    def indexDocument( doc : OdinsonDocument ) : Future[ Unit ] = {
+        Future( index.indexOdinsonDoc( doc ) )
     }
 
-    private def convertToLucene( doc : OdinsonDocument ) : Seq[ LuceneDocument ] = indexWriter.mkDocumentBlock( doc )
-
-    def close( ) : Unit = indexWriter.close()
+    def close( ) : Unit = index.close()
 
 }
 

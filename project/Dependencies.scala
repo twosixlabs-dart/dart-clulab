@@ -6,7 +6,7 @@ object Dependencies {
     val logbackVersion = "1.2.11"
     val betterFilesVersion = "3.9.1"
 
-    val odinsonVersion = "0.5.0"
+    val odinsonVersion = "0.6.1"
     val clulabVersion = "8.2.3"
 
     val dartCommonsVersion = "3.0.30"

@@ -8,7 +8,7 @@ import com.typesafe.config.ConfigFactory
 
 trait OdinsonTestBase extends StandardTestBase3x {
 
-    val ODINSON_CONF : OdinsonConfig = OdinsonConfig.fromConfig( ConfigFactory.load( "odinson-test.conf" ).getConfig( "odinson" ) )
+    val ODINSON_CONF : OdinsonConfig = OdinsonConfig.fromConfig( ConfigFactory.load( "test.conf" ).getConfig( "odinson" ) )
 
     val ODINSON_DOCS : Seq[ OdinsonDocument ] =
         File( "./odinson-api/src/test/resources/docs" )

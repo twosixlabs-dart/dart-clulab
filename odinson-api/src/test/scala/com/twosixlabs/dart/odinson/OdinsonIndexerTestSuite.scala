@@ -1,5 +1,6 @@
 package com.twosixlabs.dart.odinson
 
+import ai.lum.odinson.{Document => OdinsonDocument}
 import better.files.File
 import com.twosixlabs.dart.odinson.config.OdinsonConfig
 import org.apache.lucene.index.DirectoryReader
@@ -49,7 +50,25 @@ class OdinsonIndexerTestSuite extends OdinsonTestBase with BeforeAndAfterEach {
         index.numDocs() shouldBe 5
 
         indexerResults.corpusSize shouldBe ODINSON_DOCS.size
-        indexerResults.numBlocks shouldBe index.numDocs()
+    }
+
+    // This isn't really a test but just a quick way to generate an index from a directory of files...
+    "Odinson Indexer" should "index demo docs" ignore {
+        val indexer = new OdinsonIndexer( indexerConf )
+
+        val files = File( "nlp_output/odinson" )
+          .list
+          .flatMap( file => {
+              val content = file.contentAsString
+              if ( content.nonEmpty ) Some( OdinsonDocument.fromJson( file.toJava ) )
+              else None
+          } )
+          .toSeq
+
+        val indexerOp = indexer.indexDocuments( files )
+        val indexerResults : IndexerResult = Await.result( indexerOp, Duration( 120, MINUTES ) )
+        println( indexerResults.corpusSize )
+        indexer.close()
     }
 
     private def getLuceneReader( index : String ) : DirectoryReader = {
