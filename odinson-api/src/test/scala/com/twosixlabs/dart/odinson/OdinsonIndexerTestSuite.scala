@@ -67,7 +67,6 @@ class OdinsonIndexerTestSuite extends OdinsonTestBase with BeforeAndAfterEach {
 
         val indexerOp = indexer.indexDocuments( files )
         val indexerResults : IndexerResult = Await.result( indexerOp, Duration( 120, MINUTES ) )
-        println( indexerResults.corpusSize )
         indexer.close()
     }
 
